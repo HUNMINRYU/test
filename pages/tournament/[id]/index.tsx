@@ -116,10 +116,19 @@ export default function Tournament({ candidates }: TournamentProps) {
   );
 }
 
-export async function getServerSideProps({ params }) {
-  return {
-    props: {
-      candidates: MOCK_CANDIDATES,
-    },
-  };
+export async function getServerSideProps({ params }: { params: { id: string } }) {
+  try {
+    return {
+      props: {
+        candidates: MOCK_CANDIDATES,
+      },
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps:', error);
+    return {
+      props: {
+        candidates: [],
+      },
+    };
+  }
 } 
